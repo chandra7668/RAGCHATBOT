@@ -13,12 +13,9 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
-# ---------------- STREAMLIT PAGE ----------------
 st.set_page_config(page_title="HR RAG Chatbot", page_icon="🤖")
 st.title("🤖 HR RAG Chatbot")
-st.write("Ask HR-related questions from company documents")
-
-# ---------------- API KEY ----------------
+st.write("Ask HR-related questions from company documents"
 google_api_key = st.sidebar.text_input(
     "Enter Gemini API Key",
     type="password"
@@ -27,8 +24,6 @@ google_api_key = st.sidebar.text_input(
 if not google_api_key:
     st.warning("Please enter Gemini API Key")
     st.stop()
-
-# ---------------- LOAD DOCUMENTS ----------------
 @st.cache_resource
 def load_vectorstore():
 
@@ -76,8 +71,6 @@ llm = ChatGoogleGenerativeAI(
     temperature=0,
     google_api_key=google_api_key
 )
-
-# ---------------- PROMPT ----------------
 prompt = ChatPromptTemplate.from_messages([
     (
         "system",
@@ -90,7 +83,6 @@ prompt = ChatPromptTemplate.from_messages([
     )
 ])
 
-# ---------------- RAG CHAIN ----------------
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
@@ -103,7 +95,6 @@ rag_chain = (
     | StrOutputParser()
 )
 
-# ---------------- MEMORY ----------------
 store = {}
 
 
@@ -119,8 +110,6 @@ rag_with_memory = RunnableWithMessageHistory(
     input_messages_key="question",
     history_messages_key="chat_history",
 )
-
-# ---------------- CHAT UI ----------------
 user_question = st.text_input("Ask a question")
 
 if st.button("Submit"):
