@@ -14,7 +14,7 @@ from langchain_core.chat_history import InMemoryChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
 st.set_page_config(page_title="HR RAG Chatbot", page_icon="🤖")
-st.title("🤖 HR RAG Chatbot")
+st.title("HR RAG Chatbot")
 st.write("Ask HR-related questions from company documents"
 google_api_key = st.sidebar.text_input(
     "Enter Gemini API Key",
